@@ -199,7 +199,7 @@ gulp.task('usemin', function() {
 gulp.task('templates', function() {
   return gulp.src([
     './**/*.html',
-    '!bower_components/**/*.*',
+    '!app/bower_components/**/*.*',
     '!node_modules/**/*.*',
     '!_build/**/*.*'
   ])
@@ -208,6 +208,14 @@ gulp.task('templates', function() {
       module: 'boilerplate'
     }))
     .pipe(gulp.dest('_build/js'));
+});
+
+// Copy all bower components to the build dir.
+gulp.task('components', function() {
+  return gulp.src([
+    './bower_components/**/*.*'
+  ])
+    .pipe(gulp.dest('_build/bower_components'))
 });
 
 // reload all Browsers
@@ -263,6 +271,7 @@ gulp.task('build', function(callback) {
     'sass:build',
     'images',
     'templates',
+    'components',
     'usemin',
     'fonts',
     'build:size',
